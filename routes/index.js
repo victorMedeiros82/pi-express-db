@@ -17,5 +17,7 @@ const options = {
   }
   res.render('index', data);
 });
+router.get('/users/alunos', function(req,res,next){})
+router.get('/about', function(req,res,next){})
 
 module.exports = router;
