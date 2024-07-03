@@ -3,24 +3,24 @@
 
 <div class="mb-3">
 <label for="formGroupExampleInput" class="form-label">Matrícula</label>
-<input type="text" class="form-control">
+<input type="text" class="form-control" value="{{aluno.matricula}}">
 </div>
 
 <div class="mb-3">
 <label for="formGroupExampleInput" class="form-label">Nome</label>
-<input type="text" class="form-control">
+<input type="text" class="form-control" value="{{aluno.nome}}">
 </div>
 
 <div class="mb-3">
 <label for="formGroupExampleInput" class="form-label">Data de Nacimento</label>
-<input type="text" class="form-control">
+<input type="text" class="form-control" value="{{aluno.data_nascimento}}">
 </div>
 
 <div class="mb-3">
 <label for="formGroupExampleInput" class="form-label">Endereço de Email</label>
-<input type="text" class="form-control">
+<input type="text" class="form-control" value="{{aluno.email}}">
 </div>
 
-<button type="button submit" name="submit" id="submit" class="btn btn-outline-primary">{{buttonText}}</button>
+<input type="submit" name="submit" id="submit" class="btn btn-outline-primary" value="{{buttonText}}" >
 
 </form>
