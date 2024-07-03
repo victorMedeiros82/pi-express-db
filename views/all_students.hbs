@@ -12,11 +12,14 @@
   {{#each alunos}}
   <tbody>
     <tr>
-      <th scope="row">1</th>
+      <th scope="row">{{@index}}</th>
       <td>{{matricula}}</td>
-      <td>{{nome}}</td>
+      <td><a href="/alunos/{{matricula}}">{{nome}}</a></td>
       <td>{{data_nascimento}}</td>
       <td>{{email}}</td>
+      <td><a href="#"><i class="bi bi-pencil-square"></i></a></td>
+      <td><a href="#"><i class="bi bi-trash"></i></a></td>
+    </tr>
     </tbody>
 {{/each}}
 </table>
