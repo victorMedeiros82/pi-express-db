@@ -1,26 +1,26 @@
 <h1>{{title}}</h1>
-<form action="">
+<form action="/alunos/create"method="POST">
 
 <div class="mb-3">
-<label for="formGroupExampleInput" class="form-label">Matrícula</label>
-<input type="text" class="form-control" value="{{aluno.matricula}}">
+<label  class="form-label">Matrícula</label>
+<input type="number" name="matricula" class="form-control" value="{{aluno.matricula}}">
 </div>
 
 <div class="mb-3">
-<label for="formGroupExampleInput" class="form-label">Nome</label>
-<input type="text" class="form-control" value="{{aluno.nome}}">
+<label  class="form-label">Nome</label>
+<input type="text" name="nome" class="form-control" value="{{aluno.nome}}">
 </div>
 
 <div class="mb-3">
-<label for="formGroupExampleInput" class="form-label">Data de Nacimento</label>
-<input type="text" class="form-control" value="{{aluno.data_nascimento}}">
+<label  class="form-label">Data de Nacimento</label>
+<input type="date" name="data_nascimento" class="form-control" value="{{aluno.data_nascimento}}">
 </div>
 
 <div class="mb-3">
-<label for="formGroupExampleInput" class="form-label">Endereço de Email</label>
-<input type="text" class="form-control" value="{{aluno.email}}">
+<label class="form-label">Endereço de Email</label>
+<input type="email" name="email" class="form-control" value="{{aluno.email}}">
 </div>
 
-<input type="submit" name="submit" id="submit" class="btn btn-outline-primary" value="{{buttonText}}" >
+<input type="submit" id="submit" class="btn btn-outline-primary" value="{{buttonText}}" >
 
 </form>

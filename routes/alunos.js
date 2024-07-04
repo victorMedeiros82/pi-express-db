@@ -14,10 +14,21 @@ router.get('/new', function(req, res, next) {
     res.render('form',{title: 'Novo Aluno',buttonText:'Adicionar Aluno'});
 });
 
+router.post('/create',function(req,res,next){
+    let novoAluno = req.body
+    let matricula = novoAluno.matricula
+    alunos.content[matricula] = {
+        ...novoAluno,
+        matricula:Number(matricula)
+    }
+    res.redirect('/alunos')
+})
+
+
 router.get('/:matricula', function(req,res,next){
     const{matricula} = req.params;
     const aluno = alunos.content[matricula];
-    res.render('details_student',{title:'Detalhe do Aluno',aluno})
+    res.render('details_student',{title:'Detalhes do Aluno',aluno})
 })
 
 
