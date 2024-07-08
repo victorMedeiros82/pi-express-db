@@ -57,10 +57,10 @@ router.put('/:matricula', function (req, res, next) {
     res.redirect('/alunos')
     // res.send({body,method,msg:'Alterar o aluno'} );
 });
-router.delete('/', function (req, res, next) {
-    const{body,method} = req
-    
-    res.send({body,method,msg:'Vai remover aluno'});
+router.delete('/:matricula', function (req, res, next) {
+    const {matricula} = req.params;
+    delete alunos.content[matricula]
+    res.redirect('/alunos')
 });
 
 
