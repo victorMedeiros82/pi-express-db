@@ -7,10 +7,11 @@ var bodyParser = require('body-parser');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-var alunosRouter = require('./routes/alunos');
 var aboutRouter = require('./routes/about');
+var alunosRouter = require('./routes/alunos');
 var httpMethodOverrider = require('./middlewares/http-method-overrider');
 
+var apiAlunosRouter = require('./routes/api/api-alunos');
 
 var app = express();
 
@@ -35,6 +36,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/alunos', alunosRouter);
 app.use('/about', aboutRouter);
+
+app.use('/api/v1/alunos',apiAlunosRouter);
 
 
 // catch 404 and forward to error handler
