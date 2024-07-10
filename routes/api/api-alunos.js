@@ -1,20 +1,23 @@
 // IMPORTAÇÃO
 var express = require('express');
 var router = express.Router();
-let alunos = require('../../tests/mocks/alunos.json');
+const db = require('../../config/config_database');
 
-router.get('/', function(req,res,next){
+router.get('/', async function(req,res,next){
+    const query = 'SELECT * FROM alunos'
     try {
-        res.status(200).json(alunos);
+        const data = await db.any(query)
+        res.status(200).json(data);
     } catch (error) {
         res.status(400).json({msg: error.message});
     }
 })
-router.get('/:matricula', function(req, res, next) {
-    const {matricula} = req.params;
+router.get('/:matricula', async function(req, res, next) {
+    const {matricula} = req.params.matricula;
+    const query = `SELECT * FROM alunos WHERE matricula= ${matricula}`
     try {
-        const aluno = alunos.content[matricula];
-        res.status(200).json(aluno);
+        const data = await db.any(query)
+        res.status(200).json(data);
     } catch (error) {
         res.status(400).json({msg: error.message});
     }
