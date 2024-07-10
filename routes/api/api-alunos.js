@@ -11,37 +11,57 @@ router.get('/', function(req,res,next){
     }
 })
 router.get('/:matricula', function(req, res, next) {
-    const{matricula} = req.params;
-    const aluno = alunos.content[matricula];
-
-    res.json({aluno});
+    const {matricula} = req.params;
+    try {
+        const aluno = alunos.content[matricula];
+        res.status(200).json(aluno);
+    } catch (error) {
+        res.status(400).json({msg: error.message});
+    }
 });
 // POST
 router.post('/',function(req,res,next){
-    let novoAluno = req.body
-    let matricula = novoAluno.matricula
+    const novoAluno = req.body;
+    const matricula = novoAluno.matricula;
     alunos.content[matricula] = {
         ...novoAluno,
         matricula:Number(matricula)
     }
-    res.redirect('/alunos')
+    const response = {
+        msg: "Aluno criado com sucesso!",
+        aluno: alunos.content[matricula]
+    }
+    try {
+        res.status(201).json(response)
+    } catch (error) {
+        res.status(400).json({msg: error.msg})
+    }
 })
 // PUT 
 router.put('/:matricula', function (req, res, next) {
-    // const{body,method} = req
-    const {matricula} = req.params;
+    const {matricula} = req.params.matricula;
     const novoAluno = req.body;
-    alunos.content[matricula] = {
-        ...novoAluno,
-        matricula:Number(matricula)};
-    res.redirect('/alunos')
-    // res.send({body,method,msg:'Alterar o aluno'} );
+    alunos.content[matricula] = {...novoAluno,matricula:Number(matricula)};
+    const response = {
+        msg: "Aluno editado com sucesso!",
+        aluno: alunos.content[matricula]
+    }
+    try {
+        res.status(200).json(response)
+    } catch (error) {
+        res.status(400).json({msg: error.msg})
+    }
+
 });
 // DELETE
 router.delete('/:matricula', function (req, res, next) {
-    const {matricula} = req.params;
+    const {matricula} = req.params.matricula;
     delete alunos.content[matricula]
-    res.redirect('/alunos')
+    const response = {
+        msg: "Aluno excluido!",
+        matricula
+    }
+    res.status(200).json(response)
 });
 // EXPORTAÇÃO
 module.exports = router;
