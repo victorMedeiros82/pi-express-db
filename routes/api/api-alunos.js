@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 const db = require('../../config/config_database');
 
+//LISTA TODOS ALUNOS
 router.get('/', async function(req,res,next){
     const query = 'SELECT * FROM alunos'
     try {
@@ -12,8 +13,9 @@ router.get('/', async function(req,res,next){
         res.status(400).json({msg: error.message});
     }
 })
+//DETALHES DO ALUNO
 router.get('/:matricula', async function(req, res, next) {
-    const {matricula} = req.params.matricula;
+    const matricula = req.params.matricula;
     const query = `SELECT * FROM alunos WHERE matricula= $1`
     try {
         const data = await db.one(query,matricula)
@@ -22,7 +24,7 @@ router.get('/:matricula', async function(req, res, next) {
         res.status(400).json({msg: error.message});
     }
 });
-// POST
+// INSERE UM NOVO ALUNO
 router.post('/', async function(req,res,next){
     const nome = req.body.nome
     const matricula = req.body.matricula
@@ -41,7 +43,7 @@ router.post('/', async function(req,res,next){
         res.status(400).json(error)
     }
 })
-// PUT 
+// EDITA ALUNO
 router.put('/:matricula', async function (req, res, next) {
     const matricula = req.params.matricula;
     const nome = req.body.nome
@@ -66,7 +68,7 @@ router.put('/:matricula', async function (req, res, next) {
     }
 
 });
-// DELETE
+// DELETA ALUNO
 router.delete('/:matricula', async function (req, res, next) {
     const matricula = req.params.matricula;
     const query = "DELETE FROM alunos WHERE matricula = $1"
