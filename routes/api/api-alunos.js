@@ -28,7 +28,7 @@ router.post('/', async function(req,res,next){
     const matricula = req.body.matricula
     const email = req.body.email
     const data_nascimento = req.body.data_nascimento
-    console.log(req.body)
+
     const query = `
     INSERT INTO alunos (matricula, nome, email, data_nascimento) VALUES
     ($1, $2, $3, $4)
@@ -42,22 +42,25 @@ router.post('/', async function(req,res,next){
     }
 })
 // PUT 
-router.put('/:matricula', function (req, res, next) {
-    const {matricula} = req.params.matricula;
-    const novoAluno = req.body;
-    alunos.content[matricula] = {...novoAluno,matricula:Number(matricula)};
-    const response = {
-        msg: "Aluno editado com sucesso!",
-        aluno: alunos.content[matricula]
-    }
+router.put('/:matricula', async function (req, res, next) {
+    const matricula = req.params.matricula;
+    const nome = req.body.nome
+    const email = req.body.email
+    const data_nascimento = req.body.data_nascimento
+
+    console.log(req.body)
+
     const query = `
     UPDATE alunos
     SET
     nome = $2, email = $3, data_nascimento = $4
     WHERE matricula= $1   
     `
+        
+    const values = [matricula,nome,email,data_nascimento]
     try {
-        res.status(200).json(response)
+        const data = await db.any(query,values)
+        res.status(201).json(data)
     } catch (error) {
         res.status(400).json({msg: error.msg})
     }
@@ -65,14 +68,14 @@ router.put('/:matricula', function (req, res, next) {
 });
 // DELETE
 router.delete('/:matricula', async function (req, res, next) {
-    const {matricula} = req.params.matricula;
+    const matricula = req.params.matricula;
     const query = "DELETE FROM alunos WHERE matricula = $1"
-    delete alunos.content[matricula]
-    const response = {
-        msg: "Aluno excluido!",
-        matricula
+    try {
+        const data = await db.any(query,matricula)
+        res.status(201).json(data)
+    } catch (error) {
+        res.status(400).json(error)
     }
-    res.status(200).json(response)
 });
 // EXPORTAÇÃO
 module.exports = router;
